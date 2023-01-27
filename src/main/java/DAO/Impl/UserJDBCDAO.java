@@ -19,7 +19,7 @@ public class UserJDBCDAO implements CommonDAO<User> {
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user");
              ResultSet resultSet = preparedStatement.executeQuery()) {
-                list = WorkShop.UserWS.createAllUserRS(resultSet);
+            list = WorkShop.UserWS.createAllUserRS(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

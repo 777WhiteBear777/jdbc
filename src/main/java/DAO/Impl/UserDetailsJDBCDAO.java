@@ -2,7 +2,6 @@ package DAO.Impl;
 
 import Connectivity.JDBC;
 import DAO.CommonDAO;
-import Connectivity.JDBC;
 import Model.UserDetails;
 
 import java.sql.Connection;
@@ -15,11 +14,11 @@ public class UserDetailsJDBCDAO implements CommonDAO<UserDetails> {
     @Override
     public List<UserDetails> getAll() {
         List<UserDetails> list;
-        try(Connection connection = new JDBC().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user_details");
-            ResultSet resultSet = preparedStatement.executeQuery()
+        try (Connection connection = new JDBC().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user_details");
+             ResultSet resultSet = preparedStatement.executeQuery()
         ) {
-            while (resultSet.next()){
+            while (resultSet.next()) {
 
             }
 

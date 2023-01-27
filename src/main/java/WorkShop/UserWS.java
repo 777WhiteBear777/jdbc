@@ -10,7 +10,7 @@ import java.util.List;
 public class UserWS {
     public static User createUserRS(ResultSet resultSet) throws SQLException {
         User user = new User();
-        if(resultSet.next()){
+        if (resultSet.next()) {
             user.setId(resultSet.getInt("id"));
             user.setFirstname(resultSet.getString("firstname"));
             user.setLastname(resultSet.getString("lastname"));
@@ -20,7 +20,7 @@ public class UserWS {
 
     public static List<User> createAllUserRS(ResultSet resultSet) throws SQLException {
         List<User> list = new ArrayList<>();
-        while (resultSet.next()){
+        while (resultSet.next()) {
             User user = new User();
             user.setId(resultSet.getInt("id"));
             user.setFirstname(resultSet.getString("firstname"));

@@ -1,15 +1,11 @@
 package org.example;
 
-import Connectivity.JDBC;
 import DAO.Impl.UserJDBCDAO;
 import Model.User;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-
 
 
 //    private static PreparedStatement statement ;
@@ -22,32 +18,27 @@ public class Main {
 
         final String insertUser = "INSERT INTO user (id, firstname, lastname) VALUES (?,?,?)";
         final String selectUserSql = "SELECT * FROM user";
-        List<User> list ;
+        List<User> list;
         UserJDBCDAO userJDBCDAO = new UserJDBCDAO();
-        list=userJDBCDAO.getAll();
+        list = userJDBCDAO.getAll();
         System.out.println(list);
 
 
-
         System.out.println(userJDBCDAO.getById(2));
-        int a =userJDBCDAO.addObj(user);
-        user.setId(a-1);
-        list=userJDBCDAO.getAll();
+        int a = userJDBCDAO.addObj(user);
+        user.setId(a - 1);
+        list = userJDBCDAO.getAll();
         System.out.println(list);
 
         user.setLastname("Kilaf");
         System.out.println(user.getId());
         userJDBCDAO.update(user);
-        list=userJDBCDAO.getAll();
+        list = userJDBCDAO.getAll();
         System.out.println(list);
 
         userJDBCDAO.delete(3);
-        list=userJDBCDAO.getAll();
+        list = userJDBCDAO.getAll();
         System.out.println(list);
-
-
-
-
 
 
 //        try {
