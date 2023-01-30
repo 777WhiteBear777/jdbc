@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 public class Order extends AbstractId {
     @Column
     private String product;
-    @Column(name = "total-price")
+    @Column(name = "total_price")
     private double totalPrice;
     @Column
     private int userId;

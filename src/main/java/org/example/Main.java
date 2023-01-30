@@ -1,8 +1,9 @@
 package org.example;
 
-import DAO.Impl.UserJDBCDAO;
+import DAO.Impl.UserHibernateDAO;
 import Model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -18,56 +19,33 @@ public class Main {
 
         final String insertUser = "INSERT INTO user (id, firstname, lastname) VALUES (?,?,?)";
         final String selectUserSql = "SELECT * FROM user";
-        List<User> list;
-        UserJDBCDAO userJDBCDAO = new UserJDBCDAO();
-        list = userJDBCDAO.getAll();
-        System.out.println(list);
-
-
-        System.out.println(userJDBCDAO.getById(2));
-        int a = userJDBCDAO.addObj(user);
-        user.setId(a - 1);
-        list = userJDBCDAO.getAll();
-        System.out.println(list);
-
-        user.setLastname("Kilaf");
-        System.out.println(user.getId());
-        userJDBCDAO.update(user);
-        list = userJDBCDAO.getAll();
-        System.out.println(list);
-
-        userJDBCDAO.delete(3);
-        list = userJDBCDAO.getAll();
-        System.out.println(list);
-
-
-//        try {
+       List<User> list = new ArrayList<>();
+//        UserJDBCDAO userJDBCDAO = new UserJDBCDAO();
+//        list = userJDBCDAO.getAll();
+//        System.out.println(list);
 //
-//            statement= connection.prepareStatement(selectUserSql);
 //
-//            resultSet = statement.executeQuery();
+//        System.out.println(userJDBCDAO.getById(2));
+//        int a = userJDBCDAO.addObj(user);
+//        user.setId(a - 1);
+//        list = userJDBCDAO.getAll();
+//        System.out.println(list);
 //
-//            while (resultSet.next()) {
-//                int id = resultSet.getInt("id");
-//                String firstname = resultSet.getString("firstname");
-//                String lastname = resultSet.getString("lastname");
-//                System.out.println("id: " + id + " | name: " + firstname + " | lastname: " + lastname);
-//            }
+//        user.setLastname("Kilaf");
+//        System.out.println(user.getId());
+//        userJDBCDAO.update(user);
+//        list = userJDBCDAO.getAll();
+//        System.out.println(list);
 //
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        } finally {
-//            try {
-//                resultSet.close();
-//            } catch (SQLException e) {
-//                System.out.println("ResulSet error....");
-//            }
-//            try {
-//                statement.close();
-//            } catch (SQLException e) {
-//                System.out.println("Statement error....");
-//            }
-//        }
+//        userJDBCDAO.delete(3);
+//        list = userJDBCDAO.getAll();
+//        System.out.println(list);
 
+        UserHibernateDAO userDAO = new UserHibernateDAO();
+//        userDAO.deleteUser(6);
+        list= userDAO.getAllUser();
+        System.out.println(list);
+//
+        userDAO.addUser(user);
     }
 }
