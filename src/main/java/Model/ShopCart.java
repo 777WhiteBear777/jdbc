@@ -1,7 +1,15 @@
 package Model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
 public class ShopCart {
+    @Column
     private int userId;
+    @Column
     private int productId;
 
     public int getUserId() {

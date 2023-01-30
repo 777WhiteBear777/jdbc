@@ -1,18 +1,19 @@
 package Model;
 
-public class UserDetails {
-    private int id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
+public class UserDetails extends AbstractId{
+    @Column
     private String gender;
+    @Column
     private byte age;
+    @Column
     private int userId;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getGender() {
         return gender;
@@ -41,7 +42,6 @@ public class UserDetails {
     @Override
     public String toString() {
         return "UserDetails{" +
-                "id=" + id +
                 ", gender='" + gender + '\'' +
                 ", age=" + age +
                 ", userId=" + userId +

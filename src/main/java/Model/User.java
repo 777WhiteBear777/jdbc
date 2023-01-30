@@ -1,17 +1,17 @@
 package Model;
 
-public class User {
-    private int id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
+public class User extends AbstractId{
+    @Column
     private String firstname;
+    @Column
     private String lastname;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getFirstname() {
         return firstname;
@@ -32,7 +32,6 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 '}';

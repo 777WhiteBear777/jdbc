@@ -1,25 +1,25 @@
 package Model;
 
-public class Order {
-    private int id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
+public class Order extends AbstractId {
+    @Column
     private String product;
+    @Column(name = "total-price")
     private double totalPrice;
+    @Column
     private int userId;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getProduct() {
         return product;
     }
 
     public void setProduct(String product) {
-        this.product = product;
+        this.product += product;
     }
 
     public double getTotalPrice() {
@@ -27,7 +27,7 @@ public class Order {
     }
 
     public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+        this.totalPrice += totalPrice;
     }
 
     public int getUserId() {
@@ -41,7 +41,6 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "id=" + id +
                 ", product='" + product + '\'' +
                 ", totalPrice=" + totalPrice +
                 ", userId=" + userId +

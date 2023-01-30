@@ -1,18 +1,18 @@
 package Model;
 
-public class Product {
-    private int id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
+public class Product extends AbstractId {
+    @Column
     private String category;
+    @Column
     private String name;
+    @Column
     private float price;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getCategory() {
         return category;
@@ -41,7 +41,6 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "id=" + id +
                 ", category='" + category + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +

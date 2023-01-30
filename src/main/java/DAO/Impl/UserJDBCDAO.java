@@ -12,7 +12,6 @@ import java.util.List;
 
 public class UserJDBCDAO implements CommonDAO<User> {
 
-
     @Override
     public List<User> getAll() {
         List<User> list = null;
