@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "User", schema = "shop")
 public class User extends AbstractId{
     @Column
     private String firstname;
@@ -31,7 +31,7 @@ public class User extends AbstractId{
 
     @Override
     public String toString() {
-        return "User{" +
+        return "User{ Id = " + getId()+
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 '}';
