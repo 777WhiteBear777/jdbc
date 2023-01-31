@@ -11,12 +11,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserJDBCDAO implements CommonDAO<User> {
+    private final String SELECT_ALL = "SELECT * FROM user";
+    private final String SELECT_BY_ID = "SELECT * FROM user WHERE id = ?";
+    private final String INSERT = "INSERT INTO user ( firstname, lastname) VALUES (?,?)";
+    private final String UPDATE = "UPDATE user SET firstname = ?, lastname = ? WHERE id = ?";
+    private final String DELETE = "DELETE FROM user WHERE id = ?";
 
     @Override
     public List<User> getAll() {
         List<User> list = null;
         try (Connection connection = new JDBC().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM User");
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             list = WorkShop.UserWS.createAllUserRS(resultSet);
         } catch (SQLException e) {
@@ -29,7 +34,7 @@ public class UserJDBCDAO implements CommonDAO<User> {
     public Integer addObj(User obj) {
         int id = 0;
         try (Connection connection = new JDBC().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO User ( firstname, lastname) VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS)
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             preparedStatement.setString(1, obj.getFirstname());
             preparedStatement.setString(2, obj.getLastname());
@@ -49,7 +54,7 @@ public class UserJDBCDAO implements CommonDAO<User> {
     public User getById(int id) {
         User user;
         try (Connection connection = new JDBC().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM User WHERE id = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
             preparedStatement.setInt(1, id);
             user = WorkShop.UserWS.createUserRS(preparedStatement.executeQuery());
 
@@ -62,7 +67,7 @@ public class UserJDBCDAO implements CommonDAO<User> {
     @Override
     public void update(User obj) {
         try (Connection connection = new JDBC().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE shop.User SET firstname = ?, lastname = ? WHERE id = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
             preparedStatement.setString(1, obj.getFirstname());
             preparedStatement.setString(2, obj.getLastname());
             preparedStatement.setInt(3, obj.getId());
@@ -77,7 +82,7 @@ public class UserJDBCDAO implements CommonDAO<User> {
     @Override
     public void delete(int id) {
         try (Connection connection = new JDBC().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM User WHERE id = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

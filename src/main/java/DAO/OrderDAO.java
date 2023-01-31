@@ -9,5 +9,5 @@ public interface OrderDAO {
 
     List<Order> getAllOrderByUser(int userId);
 
-    Order addOrder(Order order);
+    Integer addOrder(Order order);
 }
