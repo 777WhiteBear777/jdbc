@@ -1,7 +1,11 @@
-package org.example;
+package Runner;
 
+import DAO.Impl.OrderJDBCDAO;
 import DAO.Impl.UserHibernateDAO;
+import DAO.Impl.UserJDBCDAO;
+import Model.Order;
 import Model.User;
+import Sevice.OrderService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +24,14 @@ public class Main {
         final String insertUser = "INSERT INTO user (id, firstname, lastname) VALUES (?,?,?)";
         final String selectUserSql = "SELECT * FROM user";
        List<User> list = new ArrayList<>();
-//        UserJDBCDAO userJDBCDAO = new UserJDBCDAO();
+        UserJDBCDAO userJDBCDAO = new UserJDBCDAO();
 //        list = userJDBCDAO.getAll();
 //        System.out.println(list);
 //
 //
 //        System.out.println(userJDBCDAO.getById(2));
-//        int a = userJDBCDAO.addObj(user);
-//        user.setId(a - 1);
+//        userJDBCDAO.addObj(user);
+////        user.setId(a );
 //        list = userJDBCDAO.getAll();
 //        System.out.println(list);
 //
@@ -40,12 +44,21 @@ public class Main {
 //        userJDBCDAO.delete(3);
 //        list = userJDBCDAO.getAll();
 //        System.out.println(list);
-
-        UserHibernateDAO userDAO = new UserHibernateDAO();
-//        userDAO.deleteUser(6);
-        list= userDAO.getAllUser();
-        System.out.println(list);
 //
-        userDAO.addUser(user);
+//        UserHibernateDAO userDAO = new UserHibernateDAO();
+////        userDAO.deleteUser(6);
+//        list= userDAO.getAllUser();
+//        System.out.println(list);
+////
+//        userDAO.addUser(user);
+
+//        OrderService orderService = new OrderService();
+//        orderService.createOrder(1);
+        Order order = new Order();
+        order.setUserId(1);
+        order.setTotalPrice(10);
+        order.setProduct("Bear");
+        OrderJDBCDAO orderJDBCDAO = new OrderJDBCDAO();
+        orderJDBCDAO.addOrder(order);
     }
 }

@@ -13,11 +13,11 @@ import java.util.List;
 
 public class ProductJDBCDAO implements CommonDAO<Product> {
 
-    private final String SELECT_ALL = "SELECT * FROM product";
-    private final String SELECT_BY_ID = "SELECT * FROM product WHERE id = ?";
-    private final String INSERT = "INSERT INTO product (category, name, price) VALUES (?,?,?)";
-    private final String UPDATE = "UPDATE product SET category = ?, name = ?, price = ? WHERE id = ?";
-    private final String DELETE = "DELETE FROM product WHERE id = ?";
+    private final String SELECT_ALL = "SELECT * FROM Product";
+    private final String SELECT_BY_ID = "SELECT * FROM Product WHERE id = ?";
+    private final String INSERT = "INSERT INTO Product (category, name, price) VALUES (?,?,?)";
+    private final String UPDATE = "UPDATE Product SET category = ?, name = ?, price = ? WHERE id = ?";
+    private final String DELETE = "DELETE FROM Product WHERE id = ?";
 
 
     @Override

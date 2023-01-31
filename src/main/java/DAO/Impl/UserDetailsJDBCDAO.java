@@ -12,11 +12,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserDetailsJDBCDAO implements CommonDAO<UserDetails> {
-    private final String SELECT_ALL = "SELECT * FROM user_details";
-    private final String SELECT_BY_ID = "SELECT * FROM user_details WHERE id = ?";
-    private final String INSERT = "INSERT INTO user_details(gender, age, user_id) VALUES (?,?,?)";
-    private final String UPDATE = "UPDATE user_details SET gender = ?, age = ?, user_id = ? WHERE id = ?";
-    private final String DELETE = "DELETE FROM user_details WHERE id = ?";
+    private final String SELECT_ALL = "SELECT * FROM User_details";
+    private final String SELECT_BY_ID = "SELECT * FROM User_details WHERE id = ?";
+    private final String INSERT = "INSERT INTO User_details(gender, age, user_id) VALUES (?,?,?)";
+    private final String UPDATE = "UPDATE User_details SET gender = ?, age = ?, user_id = ? WHERE id = ?";
+    private final String DELETE = "DELETE FROM User_details WHERE id = ?";
 
     @Override
     public List<UserDetails> getAll() {

@@ -12,9 +12,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class OrderJDBCDAO implements OrderDAO {
-    private final String SELECT_ALL = "SELECT * FROM order";
-    private final String SELECT_ALL_BY_ID = "SELECT * FROM order WHERE id = ?";
-    private final String INSERT = "INSERT INTO order (product, total, user_id) VALUES (?,?,?)";
+    private final String SELECT_ALL = "SELECT * FROM Order";
+    private final String SELECT_ALL_BY_ID = "SELECT * FROM Order WHERE id = ?";
+    private final String INSERT = "INSERT INTO shop.Order (product, total_price, user_id) VALUES (?,?,?)";
 
     @Override
     public List<Order> getAllOrder() {
@@ -47,14 +47,14 @@ public class OrderJDBCDAO implements OrderDAO {
     public Integer addOrder(Order order) {
         int id = 0;
         try (Connection connection = new JDBC().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT,PreparedStatement.RETURN_GENERATED_KEYS)){
-            preparedStatement.setString(1,order.getProduct());
-            preparedStatement.setDouble(2,order.getTotalPrice());
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, order.getProduct());
+            preparedStatement.setDouble(2, order.getTotalPrice());
             preparedStatement.setInt(3, order.getUserId());
             preparedStatement.executeUpdate();
-            try(ResultSet resultSet = preparedStatement.getGeneratedKeys()){
+            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 id = resultSet.next() ? resultSet.getInt(1) : null;
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 System.out.println(e + "addObj exception ....");
             }
 

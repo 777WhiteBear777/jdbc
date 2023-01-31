@@ -14,6 +14,15 @@ public class Order extends AbstractId {
     @Column
     private int userId;
 
+
+    public Order() {
+    }
+
+    public Order(String product) {
+        this.product = product;
+    }
+
+
     public String getProduct() {
         return product;
     }
@@ -40,7 +49,7 @@ public class Order extends AbstractId {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "Order{ Id = " + getId() +
                 ", product='" + product + '\'' +
                 ", totalPrice=" + totalPrice +
                 ", userId=" + userId +

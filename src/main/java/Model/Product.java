@@ -40,7 +40,7 @@ public class Product extends AbstractId {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "Product{ Id = " + getId()+
                 ", category='" + category + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +

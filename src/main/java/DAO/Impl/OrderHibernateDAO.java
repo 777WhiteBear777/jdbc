@@ -17,7 +17,7 @@ public class OrderHibernateDAO implements OrderDAO {
     }
 
     @Override
-    public Order addOrder(Order order) {
+    public Integer addOrder(Order order) {
         return null;
     }
 }

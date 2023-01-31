@@ -22,7 +22,6 @@ public class ShopCartHibernateDAO implements ShopCartDAO {
     }
 
     @Override
-    public ShopCart addProductByUser(ShopCart shopCart) {
-        return null;
+    public void addProductByUser(ShopCart shopCart) {
     }
 }

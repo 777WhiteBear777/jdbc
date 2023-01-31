@@ -41,7 +41,7 @@ public class UserDetails extends AbstractId{
 
     @Override
     public String toString() {
-        return "UserDetails{" +
+        return "UserDetails{ Id = " + getId()+
                 ", gender='" + gender + '\'' +
                 ", age=" + age +
                 ", userId=" + userId +

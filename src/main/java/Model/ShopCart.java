@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table
-public class ShopCart {
+public class ShopCart extends AbstractId{
     @Column
     private int userId;
     @Column
@@ -30,7 +30,7 @@ public class ShopCart {
 
     @Override
     public String toString() {
-        return "CartShop{" +
+        return "CartShop{ Id = " + getId()+
                 "userId=" + userId +
                 ", productId=" + productId +
                 '}';
