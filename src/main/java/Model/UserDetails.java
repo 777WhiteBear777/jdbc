@@ -5,13 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table
+@Table (name = "User_details",schema = "shop")
 public class UserDetails extends AbstractId{
     @Column
     private String gender;
     @Column
     private byte age;
-    @Column
+    @Column (name = "user_id")
     private int userId;
 
 

@@ -19,7 +19,7 @@ public class HibernateSession {
                         addAnnotatedClass(User.class).
                         addAnnotatedClass(UserDetails.class).
                         addAnnotatedClass(Product.class).
-//                        addAnnotatedClass(ShopCart.class).
+                        addAnnotatedClass(ShopCart.class).
                         addAnnotatedClass(Order.class).
                         buildSessionFactory();
             } catch (Exception e) {

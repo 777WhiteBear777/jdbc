@@ -14,7 +14,6 @@ public class Order extends AbstractId {
     @Column
     private int userId;
 
-
     public Order() {
         this.product = "";
     }

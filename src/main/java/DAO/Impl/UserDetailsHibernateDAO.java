@@ -1,33 +1,64 @@
 package DAO.Impl;
 
+import Connectivity.HibernateSession;
+import DAO.CommonDAO;
 import DAO.UserDetailsDAO;
 import Model.UserDetails;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class UserDetailsHibernateDAO implements UserDetailsDAO {
+public class UserDetailsHibernateDAO implements CommonDAO<UserDetails> {
     @Override
-    public List<UserDetails> getAllUserDetails() {
-        return null;
+    public List<UserDetails> getAll() {
+        try (Session session = HibernateSession.getSessionFactory().openSession()) {
+            Query<UserDetails> query = session.createQuery("from UserDetails ", UserDetails.class);
+            return query.list();
+        }
     }
 
     @Override
-    public Integer addUserDetails(UserDetails userDetails) {
-        return null;
+    public Integer addObj(UserDetails obj) {
+        int id;
+        try (Session session = HibernateSession.getSessionFactory().openSession()) {
+            session.getTransaction().begin();
+            session.persist(obj);
+            id = obj.getId();
+            session.getTransaction().commit();
+        }
+        return id;
     }
 
     @Override
-    public UserDetails getUserDetails(int id) {
-        return null;
+    public UserDetails getById(int id) {
+        UserDetails userDetails;
+        try (Session session = HibernateSession.getSessionFactory().openSession()) {
+            userDetails = session.find(UserDetails.class, id);
+        }
+
+        return userDetails;
     }
 
     @Override
-    public void updateUserDetails(UserDetails userDetails) {
+    public void update(UserDetails userDetails) {
+        try (Session session = HibernateSession.getSessionFactory().openSession()) {
+            session.getTransaction().begin();
+            session.merge(userDetails);
+            session.getTransaction().commit();
+        }
 
     }
 
     @Override
-    public void deleteUserDetails(int id) {
+    public void delete(int id) {
+        UserDetails userDetails;
+        try (Session session = HibernateSession.getSessionFactory().openSession()) {
+            session.getTransaction().begin();
+            userDetails = session.find(UserDetails.class,id);
+            session.remove(userDetails);
+            session.getTransaction().commit();
+        }
 
     }
 }
