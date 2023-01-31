@@ -1,4 +1,4 @@
-package org.example;
+package Runner;
 
 import DAO.Impl.UserJDBCDAO;
 import Model.User;
@@ -36,7 +36,7 @@ public class Main {
         list = userJDBCDAO.getAll();
         System.out.println(list);
 
-        userJDBCDAO.delete(3);
+        userJDBCDAO.delete(a);
         list = userJDBCDAO.getAll();
         System.out.println(list);
 

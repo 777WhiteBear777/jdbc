@@ -1,25 +1,66 @@
 package DAO.Impl;
 
-import DAO.CommonDAO;
+import Connectivity.JDBC;
 import DAO.OrderDAO;
 import Model.Order;
+import WorkShop.OrderWS;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class OrderJDBCDAO implements OrderDAO {
+    private final String SELECT_ALL = "SELECT * FROM order";
+    private final String SELECT_ALL_BY_ID = "SELECT * FROM order WHERE id = ?";
+    private final String INSERT = "INSERT INTO order (product, total, user_id) VALUES (?,?,?)";
 
     @Override
     public List<Order> getAllOrder() {
-        return null;
+        List<Order> list;
+        try (Connection connection = new JDBC().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            list = OrderWS.createAllOrderRS(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
     }
 
     @Override
     public List<Order> getAllOrderByUser(int userId) {
-        return null;
+        List<Order> list;
+        try (Connection connection = new JDBC().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_BY_ID)) {
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            list = OrderWS.createAllOrderRS(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
     }
 
     @Override
-    public Order addOrder(Order order) {
-        return null;
+    public Integer addOrder(Order order) {
+        int id = 0;
+        try (Connection connection = new JDBC().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT,PreparedStatement.RETURN_GENERATED_KEYS)){
+            preparedStatement.setString(1,order.getProduct());
+            preparedStatement.setDouble(2,order.getTotalPrice());
+            preparedStatement.setInt(3, order.getUserId());
+            preparedStatement.executeUpdate();
+            try(ResultSet resultSet = preparedStatement.getGeneratedKeys()){
+                id = resultSet.next() ? resultSet.getInt(1) : null;
+            }catch (SQLException e) {
+                System.out.println(e + "addObj exception ....");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return id;
     }
 }

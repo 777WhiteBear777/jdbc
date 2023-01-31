@@ -11,6 +11,6 @@ public interface ShopCartDAO {
 
     void deleteProductByUser(int userId, int productId);
 
-    ShopCart addProductByUser(ShopCart shopCart);
+    void addProductByUser(ShopCart shopCart);
 
 }
