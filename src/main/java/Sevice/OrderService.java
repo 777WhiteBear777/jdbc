@@ -13,7 +13,7 @@ import java.util.List;
 public class OrderService {
     public void createOrder(int id) {
 
-        Order order = new Order("");
+        Order order = new Order();
         OrderJDBCDAO orderJDBCDAO = new OrderJDBCDAO();
         ShopCartJDBCDAO shopCartJDBCDAO = new ShopCartJDBCDAO();
         ProductJDBCDAO productJDBCDAO = new ProductJDBCDAO();

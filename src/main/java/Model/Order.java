@@ -16,10 +16,7 @@ public class Order extends AbstractId {
 
 
     public Order() {
-    }
-
-    public Order(String product) {
-        this.product = product;
+        this.product = "";
     }
 
 
