@@ -17,9 +17,9 @@ import java.util.List;
 public class OrderJDBCDAO implements OrderDAO {
     private final static Logger LOGGER = LogManager.getLogger(JDBC.class.getName());
 
-    private final String SELECT_ALL = "SELECT * FROM shop.Order";
-    private final String SELECT_ALL_BY_ID = "SELECT * FROM shop.Order WHERE id = ?";
-    private final String INSERT = "INSERT INTO shop.Order (product, total_price, user_id) VALUES (?,?,?)";
+    private final String SELECT_ALL = "SELECT * FROM OrderSS";
+    private final String SELECT_ALL_BY_ID = "SELECT * FROM OrderSS WHERE id = ?";
+    private final String INSERT = "INSERT INTO OrderSS (product, total_price, user_id) VALUES (?,?,?)";
 
     @Test
     @Override

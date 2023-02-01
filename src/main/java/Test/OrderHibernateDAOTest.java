@@ -25,7 +25,7 @@ public class OrderHibernateDAOTest {
         Order order = new Order();
         order.setProduct("TEST, TEST, TEST");
         order.setUserId(20L);
-        order.setTotalPrice(999F);
+        order.setTotalPrice(9999F);
         Assertions.assertNotNull(orderHibernateDAO.addOrder(order));
     }
 }

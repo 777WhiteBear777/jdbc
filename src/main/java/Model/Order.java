@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Order", schema = "shop")
+@Table(name = "OrderSS", schema = "shop")
 public class Order extends AbstractId {
     private String product;
     @Column(name = "total_price")
