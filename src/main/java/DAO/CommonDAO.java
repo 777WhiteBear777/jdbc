@@ -5,11 +5,11 @@ import java.util.List;
 public interface CommonDAO<T> {
     List<T> getAll();
 
-    Integer addObj(T obj);
+    Long addObj(T obj);
 
-    T getById(int id);
+    T getById(Long id);
 
     void update(T obj);
 
-    void delete(int id);
+    void delete(Long id);
 }

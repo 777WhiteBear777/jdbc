@@ -2,7 +2,6 @@ package DAO.Impl;
 
 import Connectivity.HibernateSession;
 import DAO.CommonDAO;
-import DAO.UserDetailsDAO;
 import Model.UserDetails;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -10,6 +9,7 @@ import org.hibernate.query.Query;
 import java.util.List;
 
 public class UserDetailsHibernateDAO implements CommonDAO<UserDetails> {
+
     @Override
     public List<UserDetails> getAll() {
         try (Session session = HibernateSession.getSessionFactory().openSession()) {
@@ -19,8 +19,8 @@ public class UserDetailsHibernateDAO implements CommonDAO<UserDetails> {
     }
 
     @Override
-    public Integer addObj(UserDetails obj) {
-        int id;
+    public Long addObj(UserDetails obj) {
+        Long id;
         try (Session session = HibernateSession.getSessionFactory().openSession()) {
             session.getTransaction().begin();
             session.persist(obj);
@@ -31,7 +31,7 @@ public class UserDetailsHibernateDAO implements CommonDAO<UserDetails> {
     }
 
     @Override
-    public UserDetails getById(int id) {
+    public UserDetails getById(Long id) {
         UserDetails userDetails;
         try (Session session = HibernateSession.getSessionFactory().openSession()) {
             userDetails = session.find(UserDetails.class, id);
@@ -47,18 +47,16 @@ public class UserDetailsHibernateDAO implements CommonDAO<UserDetails> {
             session.merge(userDetails);
             session.getTransaction().commit();
         }
-
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         UserDetails userDetails;
         try (Session session = HibernateSession.getSessionFactory().openSession()) {
             session.getTransaction().begin();
-            userDetails = session.find(UserDetails.class,id);
+            userDetails = session.find(UserDetails.class, id);
             session.remove(userDetails);
             session.getTransaction().commit();
         }
-
     }
 }

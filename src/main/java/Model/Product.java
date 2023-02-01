@@ -7,12 +7,12 @@ import jakarta.persistence.Table;
 @Entity
 @Table
 public class Product extends AbstractId {
-    @Column
+
     private String category;
-    @Column
+
     private String name;
-    @Column
-    private float price;
+
+    private Float price;
 
     public String getCategory() {
         return category;
@@ -30,11 +30,11 @@ public class Product extends AbstractId {
         this.name = name;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

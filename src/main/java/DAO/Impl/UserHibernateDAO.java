@@ -1,6 +1,7 @@
 package DAO.Impl;
 
 import Connectivity.HibernateSession;
+import DAO.CommonDAO;
 import DAO.UserDAO;
 import Model.User;
 import org.hibernate.Session;
@@ -9,13 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class UserHibernateDAO implements UserDAO {
-
+public class UserHibernateDAO implements CommonDAO<User> {
 
     @Override
-
     @Test
-    public List<User> getAllUser() {
+    public List<User> getAll() {
         try (Session session = HibernateSession.getSessionFactory().openSession()) {
             Query<User> query = session.createQuery("from User ", User.class);
             return query.list();
@@ -23,8 +22,8 @@ public class UserHibernateDAO implements UserDAO {
     }
 
     @Override
-    public Integer addUser(User user) {
-        int id;
+    public Long addObj(User user) {
+        Long id;
         try (Session session = HibernateSession.getSessionFactory().openSession()) {
             session.getTransaction().begin();
             session.persist(user);
@@ -35,7 +34,7 @@ public class UserHibernateDAO implements UserDAO {
     }
 
     @Override
-    public User getUser(int id) {
+    public User getById(Long id) {
         User user;
         try (Session session = HibernateSession.getSessionFactory().openSession()) {
             user = session.find(User.class, id);
@@ -44,7 +43,7 @@ public class UserHibernateDAO implements UserDAO {
     }
 
     @Override
-    public void updateUser(User user) {
+    public void update(User user) {
         try (Session session = HibernateSession.getSessionFactory().openSession()) {
             session.getTransaction().begin();
             session.merge(user);
@@ -53,7 +52,7 @@ public class UserHibernateDAO implements UserDAO {
     }
 
     @Override
-    public void deleteUser(int id) {
+    public void delete(Long id) {
         User user;
         try (Session session = HibernateSession.getSessionFactory().openSession()) {
             session.getTransaction().begin();
@@ -61,6 +60,5 @@ public class UserHibernateDAO implements UserDAO {
             session.remove(session.contains(user) ? user : session.merge(user));
             session.getTransaction().commit();
         }
-
     }
 }

@@ -35,8 +35,8 @@ public class ProductJDBCDAO implements CommonDAO<Product> {
     }
 
     @Override
-    public Integer addObj(Product obj) {
-        int id = 0;
+    public Long addObj(Product obj) {
+        Long id = null;
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, obj.getCategory());
@@ -44,7 +44,7 @@ public class ProductJDBCDAO implements CommonDAO<Product> {
             preparedStatement.setFloat(3, obj.getPrice());
             preparedStatement.executeUpdate();
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
-                id = resultSet.next() ? resultSet.getInt(1) : null;
+                id = resultSet.next() ? resultSet.getLong(1) : null;
             } catch (SQLException e) {
                 System.out.println(e + "addObj exception ....");
             }
@@ -55,11 +55,11 @@ public class ProductJDBCDAO implements CommonDAO<Product> {
     }
 
     @Override
-    public Product getById(int id) {
+    public Product getById(Long id) {
         Product product;
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             product = ProductWS.createProductRS(resultSet);
         } catch (SQLException e) {
@@ -75,7 +75,7 @@ public class ProductJDBCDAO implements CommonDAO<Product> {
             preparedStatement.setString(1, obj.getCategory());
             preparedStatement.setString(2, obj.getName());
             preparedStatement.setFloat(3, obj.getPrice());
-            preparedStatement.setInt(4, obj.getId());
+            preparedStatement.setLong(4, obj.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -84,10 +84,10 @@ public class ProductJDBCDAO implements CommonDAO<Product> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

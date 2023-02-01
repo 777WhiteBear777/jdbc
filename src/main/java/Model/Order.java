@@ -5,17 +5,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "Order", schema = "shop")
 public class Order extends AbstractId {
-    @Column
     private String product;
     @Column(name = "total_price")
-    private double totalPrice;
-    @Column
-    private int userId;
+    private Float totalPrice;
+    @Column(name = "user_id")
+    private Long userId;
 
     public Order() {
         this.product = "";
+        this.totalPrice = 0f;
     }
 
 
@@ -27,25 +27,25 @@ public class Order extends AbstractId {
         this.product += product;
     }
 
-    public double getTotalPrice() {
+    public Float getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(Float totalPrice) {
         this.totalPrice += totalPrice;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
     @Override
     public String toString() {
-        return "Order{ Id = " + getId() +
+        return "Order {id = " + getId() +
                 ", product='" + product + '\'' +
                 ", totalPrice=" + totalPrice +
                 ", userId=" + userId +

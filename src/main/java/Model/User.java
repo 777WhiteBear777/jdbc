@@ -7,9 +7,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "User", schema = "shop")
 public class User extends AbstractId{
-    @Column
     private String firstname;
-    @Column
     private String lastname;
 
 

@@ -1,16 +1,8 @@
 package Runner;
 
 import DAO.Impl.OrderJDBCDAO;
-import DAO.Impl.UserDetailsHibernateDAO;
-import DAO.Impl.UserHibernateDAO;
+import DAO.Impl.ShopCartHibernateDAO;
 import DAO.Impl.UserJDBCDAO;
-import Model.Order;
-import Model.User;
-import Model.UserDetails;
-import Sevice.OrderService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
 
@@ -27,16 +19,42 @@ public class Main {
 //
 //        orderJDBCDAO.addOrder(order);
 
-//        OrderService orderService = new OrderService();
-//        orderService.createOrder(2);
-        List<User> list = new ArrayList<>();
-        UserHibernateDAO userHibernateDAO = new UserHibernateDAO();
-        list = userHibernateDAO.getAllUser();
-        System.out.println(list);
 
-        List<UserDetails> list1 = new ArrayList<>();
-        UserDetailsHibernateDAO userDetailsHibernateDAO = new UserDetailsHibernateDAO();
-       list1 = userDetailsHibernateDAO.getAllUserDetails();
-        System.out.println(list);
+//
+//        List<UserDetails> list1 = new ArrayList<>();
+//        UserDetailsHibernateDAO userDetailsHibernateDAO = new UserDetailsHibernateDAO();
+//       list1 = userDetailsHibernateDAO.getAll();
+//        System.out.println(list1);
+//        ShopCart shopCart = new ShopCart();
+//        shopCart.setUserId(2);
+//        shopCart.setProductId(2);
+//        ShopCart shopCart1 = new ShopCart();
+//        shopCart1.setUserId(2);
+//        shopCart1.setProductId(5);
+//        ShopCart shopCart2 = new ShopCart();
+//        shopCart2.setUserId(2);
+//        shopCart2.setProductId(3);
+//        UserHibernateDAO userHibernateDAO = new UserHibernateDAO();
+//        User user = new User();
+//        user.setLastname("Los");
+//        user.setFirstname("Bos");
+//        userHibernateDAO.addObj(user);
+
+        ShopCartHibernateDAO shopCartHibernateDAO = new ShopCartHibernateDAO();
+//        shopCartHibernateDAO.addShopCart(shopCart);
+//        shopCartHibernateDAO.addShopCart(shopCart1);
+//        shopCartHibernateDAO.addShopCart(shopCart2);
+
+//        OrderService orderService = new OrderService();
+//        orderService.createOrderHibernate(1L);
+//        orderService.createOrderJDBC(1);
+//        ProductJDBCDAO productJDBCDAO = new ProductJDBCDAO();
+//        System.out.println(productJDBCDAO.getAll());
+        OrderJDBCDAO orderJDBCDAO = new OrderJDBCDAO();
+        System.out.println(orderJDBCDAO.getAllOrder());
+        System.out.println(orderJDBCDAO.getAllOrderByUser(1L));
+
+        UserJDBCDAO userJDBCDAO = new UserJDBCDAO();
+        System.out.println(userJDBCDAO.getAll());
     }
 }

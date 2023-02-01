@@ -3,6 +3,7 @@ package DAO.Impl;
 import Connectivity.JDBC;
 import DAO.CommonDAO;
 import Model.User;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,9 +18,10 @@ public class UserJDBCDAO implements CommonDAO<User> {
     private final String UPDATE = "UPDATE User SET firstname = ?, lastname = ? WHERE id = ?";
     private final String DELETE = "DELETE FROM User WHERE id = ?";
 
+    @Test
     @Override
     public List<User> getAll() {
-        List<User> list = null;
+        List<User> list ;
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
              ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -30,9 +32,10 @@ public class UserJDBCDAO implements CommonDAO<User> {
         return list;
     }
 
+    @Test
     @Override
-    public Integer addObj(User obj) {
-        int id = 0;
+    public Long addObj(User obj) {
+        Long id = null;
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
@@ -40,7 +43,7 @@ public class UserJDBCDAO implements CommonDAO<User> {
             preparedStatement.setString(2, obj.getLastname());
             preparedStatement.execute();
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
-                id = resultSet.next() ? resultSet.getInt(1) : null;
+                id = resultSet.next() ? resultSet.getLong(1) : null;
             } catch (SQLException e) {
                 System.out.println(e + "addObj exception ....");
             }
@@ -50,12 +53,13 @@ public class UserJDBCDAO implements CommonDAO<User> {
         return id;
     }
 
+    @Test
     @Override
-    public User getById(int id) {
+    public User getById(Long id) {
         User user;
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             user = WorkShop.UserWS.createUserRS(preparedStatement.executeQuery());
 
         } catch (SQLException e) {
@@ -70,7 +74,7 @@ public class UserJDBCDAO implements CommonDAO<User> {
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
             preparedStatement.setString(1, obj.getFirstname());
             preparedStatement.setString(2, obj.getLastname());
-            preparedStatement.setInt(3, obj.getId());
+            preparedStatement.setLong(3, obj.getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -80,10 +84,10 @@ public class UserJDBCDAO implements CommonDAO<User> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

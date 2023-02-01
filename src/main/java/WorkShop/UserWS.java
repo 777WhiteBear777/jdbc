@@ -11,7 +11,7 @@ public class UserWS {
     public static User createUserRS(ResultSet resultSet) throws SQLException {
         User user = new User();
         if (resultSet.next()) {
-            user.setId(resultSet.getInt("id"));
+            user.setId(resultSet.getLong("id"));
             user.setFirstname(resultSet.getString("firstname"));
             user.setLastname(resultSet.getString("lastname"));
         }
@@ -22,7 +22,7 @@ public class UserWS {
         List<User> list = new ArrayList<>();
         while (resultSet.next()) {
             User user = new User();
-            user.setId(resultSet.getInt("id"));
+            user.setId(resultSet.getLong("id"));
             user.setFirstname(resultSet.getString("firstname"));
             user.setLastname(resultSet.getString("lastname"));
             list.add(user);

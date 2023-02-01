@@ -4,6 +4,7 @@ import Connectivity.JDBC;
 import DAO.ShopCartDAO;
 import Model.ShopCart;
 import WorkShop.ShopCartWS;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,16 +13,17 @@ import java.util.List;
 
 public class ShopCartJDBCDAO implements ShopCartDAO {
     private final String SELECT_ALL_BY_USER_ID = "SELECT * FROM Shop_cart WHERE user_id = ?";
-    private final String INSERT_BY_USER_ID = "INSERT INTO Shop_cart (user_id, product_id) VALUES (?,?)";
+    private final String INSERT = "INSERT INTO Shop_cart (user_id, product_id) VALUES (?,?)";
     private final String DELETE_ALL_PRODUCT_BY_USER_ID = "DELETE FROM Shop_cart WHERE user_id = ?";
     private final String DELETE_PRODUCT_BY_USER_ID = "DELETE FROM Shop_cart WHERE user_id = ? AND product_id = ?";
 
+    @Test
     @Override
-    public List<ShopCart> getAllProductByUser(int userId) {
+    public List<ShopCart> getAllProductByUser(Long userId) {
         List<ShopCart> list;
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_BY_USER_ID)) {
-            preparedStatement.setInt(1, userId);
+            preparedStatement.setLong(1, userId);
             list = ShopCartWS.createAllShopCartRS(preparedStatement.executeQuery());
 
         } catch (SQLException e) {
@@ -30,11 +32,12 @@ public class ShopCartJDBCDAO implements ShopCartDAO {
         return list;
     }
 
+
     @Override
-    public void deleteAllProductByUser(int userId) {
+    public void deleteAllProductByUser(Long userId) {
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ALL_PRODUCT_BY_USER_ID)) {
-            preparedStatement.setInt(1, userId);
+            preparedStatement.setLong(1, userId);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -44,11 +47,11 @@ public class ShopCartJDBCDAO implements ShopCartDAO {
     }
 
     @Override
-    public void deleteProductByUser(int userId, int productId) {
+    public void deleteShopCart(Long userId, Long productId) {
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT_BY_USER_ID)) {
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, productId);
+            preparedStatement.setLong(1, userId);
+            preparedStatement.setLong(2, productId);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -58,11 +61,11 @@ public class ShopCartJDBCDAO implements ShopCartDAO {
     }
 
     @Override
-    public void addProductByUser(ShopCart shopCart) {
+    public void addShopCart(ShopCart shopCart) {
         try (Connection connection = new JDBC().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_BY_USER_ID)) {
-            preparedStatement.setInt(1, shopCart.getUserId());
-            preparedStatement.setInt(2, shopCart.getProductId());
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
+            preparedStatement.setLong(1, shopCart.getUserId());
+            preparedStatement.setLong(2, shopCart.getProductId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

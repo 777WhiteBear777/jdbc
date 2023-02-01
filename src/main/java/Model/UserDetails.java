@@ -7,12 +7,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table (name = "User_details",schema = "shop")
 public class UserDetails extends AbstractId{
-    @Column
     private String gender;
-    @Column
     private byte age;
-    @Column (name = "user_id")
-    private int userId;
+    private Long userId;
 
 
     public String getGender() {
@@ -31,11 +28,11 @@ public class UserDetails extends AbstractId{
         this.age = age;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

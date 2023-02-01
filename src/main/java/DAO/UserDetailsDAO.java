@@ -7,11 +7,11 @@ import java.util.List;
 public interface UserDetailsDAO {
     List<UserDetails> getAllUserDetails();
 
-    Integer addUserDetails(UserDetails userDetails);
+    Long addUserDetails(UserDetails userDetails);
 
-    UserDetails getUserDetails(int id);
+    UserDetails getUserDetails(Long id);
 
     void updateUserDetails(UserDetails userDetails);
 
-    void deleteUserDetails(int id);
+    void deleteUserDetails(Long id);
 }

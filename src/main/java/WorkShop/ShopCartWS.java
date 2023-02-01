@@ -12,8 +12,8 @@ public class ShopCartWS {
         List<ShopCart> list = new ArrayList<>();
         while (resultSet.next()) {
             ShopCart shopCart = new ShopCart();
-            shopCart.setUserId(resultSet.getInt("user_id"));
-            shopCart.setProductId(resultSet.getInt("product_id"));
+            shopCart.setUserId(resultSet.getLong("user_id"));
+            shopCart.setProductId(resultSet.getLong("product_id"));
             list.add(shopCart);
         }
         return list;

@@ -5,12 +5,12 @@ import Model.ShopCart;
 import java.util.List;
 
 public interface ShopCartDAO {
-    List<ShopCart> getAllProductByUser(int userId);
+    List<ShopCart> getAllProductByUser(Long userId);
 
-    void deleteAllProductByUser(int userId);
+    void deleteAllProductByUser(Long userId);
 
-    void deleteProductByUser(int userId, int productId);
+    void deleteShopCart(Long userId, Long productId);
 
-    void addProductByUser(ShopCart shopCart);
+    void addShopCart(ShopCart shopCart);
 
 }
