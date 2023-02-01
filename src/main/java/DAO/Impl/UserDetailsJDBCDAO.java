@@ -4,6 +4,9 @@ import Connectivity.JDBC;
 import DAO.CommonDAO;
 import Model.UserDetails;
 import WorkShop.UserDetailsWS;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,26 +15,30 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserDetailsJDBCDAO implements CommonDAO<UserDetails> {
+    private final Logger LOGGER = LogManager.getLogger(JDBC.class.getName());
+
     private final String SELECT_ALL = "SELECT * FROM User_details";
     private final String SELECT_BY_ID = "SELECT * FROM User_details WHERE id = ?";
     private final String INSERT = "INSERT INTO User_details(gender, age, user_id) VALUES (?,?,?)";
     private final String UPDATE = "UPDATE User_details SET gender = ?, age = ?, user_id = ? WHERE id = ?";
     private final String DELETE = "DELETE FROM User_details WHERE id = ?";
 
+    @Test
     @Override
     public List<UserDetails> getAll() {
-        List<UserDetails> list;
+        List<UserDetails> list = null;
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
              ResultSet resultSet = preparedStatement.executeQuery()
         ) {
             list = UserDetailsWS.createAllUserDetailsRS(resultSet);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
         return list;
     }
 
+    @Test
     @Override
     public Long addObj(UserDetails obj) {
         Long id = null;
@@ -44,24 +51,25 @@ public class UserDetailsJDBCDAO implements CommonDAO<UserDetails> {
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 id = resultSet.next() ? resultSet.getLong(1) : null;
             } catch (SQLException e) {
-                System.out.println(e + "addObj exception ....");
+                LOGGER.error(e);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
         return id;
     }
 
+    @Test
     @Override
     public UserDetails getById(Long id) {
-        UserDetails userDetails;
+        UserDetails userDetails = null;
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
             preparedStatement.setDouble(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             userDetails = UserDetailsWS.createUserDetailsRS(resultSet);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
         return userDetails;
     }
@@ -76,7 +84,7 @@ public class UserDetailsJDBCDAO implements CommonDAO<UserDetails> {
             preparedStatement.setLong(4, obj.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
 
     }
@@ -88,7 +96,7 @@ public class UserDetailsJDBCDAO implements CommonDAO<UserDetails> {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
 
     }

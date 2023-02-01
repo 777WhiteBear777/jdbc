@@ -14,7 +14,7 @@ public class OrderWS {
             Order order = new Order();
             order.setId(resultSet.getLong("id"));
             order.setProduct(resultSet.getString("product"));
-            order.setTotalPrice(resultSet.getFloat("total"));
+            order.setTotalPrice(resultSet.getFloat("total_price"));
             order.setUserId(resultSet.getLong("user_id"));
             list.add(order);
         }

@@ -4,6 +4,9 @@ import Connectivity.JDBC;
 import DAO.CommonDAO;
 import Model.Product;
 import WorkShop.ProductWS;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +15,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ProductJDBCDAO implements CommonDAO<Product> {
+    private final Logger LOGGER = LogManager.getLogger(JDBC.class.getName());
+
 
     private final String SELECT_ALL = "SELECT * FROM Product";
     private final String SELECT_BY_ID = "SELECT * FROM Product WHERE id = ?";
@@ -20,20 +25,22 @@ public class ProductJDBCDAO implements CommonDAO<Product> {
     private final String DELETE = "DELETE FROM Product WHERE id = ?";
 
 
+    @Test
     @Override
     public List<Product> getAll() {
-        List<Product> list;
+        List<Product> list = null;
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
              ResultSet resultSet = preparedStatement.executeQuery()
         ) {
             list = ProductWS.createAllProductRS(resultSet);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
         return list;
     }
 
+    @Test
     @Override
     public Long addObj(Product obj) {
         Long id = null;
@@ -46,24 +53,25 @@ public class ProductJDBCDAO implements CommonDAO<Product> {
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 id = resultSet.next() ? resultSet.getLong(1) : null;
             } catch (SQLException e) {
-                System.out.println(e + "addObj exception ....");
+                LOGGER.error(e);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
         return id;
     }
 
+    @Test
     @Override
     public Product getById(Long id) {
-        Product product;
+        Product product = null;
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             product = ProductWS.createProductRS(resultSet);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
         return product;
     }
@@ -78,7 +86,7 @@ public class ProductJDBCDAO implements CommonDAO<Product> {
             preparedStatement.setLong(4, obj.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
 
     }
@@ -90,7 +98,7 @@ public class ProductJDBCDAO implements CommonDAO<Product> {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
 
     }

@@ -4,6 +4,8 @@ import Connectivity.JDBC;
 import DAO.ShopCartDAO;
 import Model.ShopCart;
 import WorkShop.ShopCartWS;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
@@ -12,6 +14,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ShopCartJDBCDAO implements ShopCartDAO {
+    private final Logger LOGGER = LogManager.getLogger(JDBC.class.getName());
+
     private final String SELECT_ALL_BY_USER_ID = "SELECT * FROM Shop_cart WHERE user_id = ?";
     private final String INSERT = "INSERT INTO Shop_cart (user_id, product_id) VALUES (?,?)";
     private final String DELETE_ALL_PRODUCT_BY_USER_ID = "DELETE FROM Shop_cart WHERE user_id = ?";
@@ -20,14 +24,14 @@ public class ShopCartJDBCDAO implements ShopCartDAO {
     @Test
     @Override
     public List<ShopCart> getAllProductByUser(Long userId) {
-        List<ShopCart> list;
+        List<ShopCart> list = null;
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_BY_USER_ID)) {
             preparedStatement.setLong(1, userId);
             list = ShopCartWS.createAllShopCartRS(preparedStatement.executeQuery());
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
         return list;
     }
@@ -41,7 +45,7 @@ public class ShopCartJDBCDAO implements ShopCartDAO {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
 
     }
@@ -55,7 +59,7 @@ public class ShopCartJDBCDAO implements ShopCartDAO {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
 
     }
@@ -69,7 +73,7 @@ public class ShopCartJDBCDAO implements ShopCartDAO {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
     }
 }

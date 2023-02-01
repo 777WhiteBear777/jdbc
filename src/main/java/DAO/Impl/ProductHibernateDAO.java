@@ -5,11 +5,13 @@ import DAO.CommonDAO;
 import Model.Product;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 public class ProductHibernateDAO implements CommonDAO<Product> {
 
+    @Test
     @Override
     public List<Product> getAll() {
         try (Session session = HibernateSession.getSessionFactory().openSession()) {
@@ -19,6 +21,7 @@ public class ProductHibernateDAO implements CommonDAO<Product> {
         }
     }
 
+    @Test
     @Override
     public Long addObj(Product product) {
         Long id;
@@ -32,6 +35,7 @@ public class ProductHibernateDAO implements CommonDAO<Product> {
         return id;
     }
 
+    @Test
     @Override
     public Product getById(Long id) {
         Product product;

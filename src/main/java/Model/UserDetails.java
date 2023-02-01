@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 public class UserDetails extends AbstractId{
     private String gender;
     private byte age;
+    @Column(name = "user_id")
     private Long userId;
 
 

@@ -2,7 +2,6 @@ package DAO.Impl;
 
 import Connectivity.HibernateSession;
 import DAO.CommonDAO;
-import DAO.UserDAO;
 import Model.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -12,8 +11,8 @@ import java.util.List;
 
 public class UserHibernateDAO implements CommonDAO<User> {
 
-    @Override
     @Test
+    @Override
     public List<User> getAll() {
         try (Session session = HibernateSession.getSessionFactory().openSession()) {
             Query<User> query = session.createQuery("from User ", User.class);
@@ -21,6 +20,7 @@ public class UserHibernateDAO implements CommonDAO<User> {
         }
     }
 
+    @Test
     @Override
     public Long addObj(User user) {
         Long id;
@@ -33,6 +33,7 @@ public class UserHibernateDAO implements CommonDAO<User> {
         }
     }
 
+    @Test
     @Override
     public User getById(Long id) {
         User user;

@@ -3,6 +3,8 @@ package DAO.Impl;
 import Connectivity.JDBC;
 import DAO.CommonDAO;
 import Model.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
@@ -12,6 +14,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserJDBCDAO implements CommonDAO<User> {
+    private final Logger LOGGER = LogManager.getLogger(JDBC.class.getName());
+
     private final String SELECT_ALL = "SELECT * FROM User";
     private final String SELECT_BY_ID = "SELECT * FROM User WHERE id = ?";
     private final String INSERT = "INSERT INTO User ( firstname, lastname) VALUES (?,?)";
@@ -21,13 +25,13 @@ public class UserJDBCDAO implements CommonDAO<User> {
     @Test
     @Override
     public List<User> getAll() {
-        List<User> list ;
+        List<User> list = null;
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             list = WorkShop.UserWS.createAllUserRS(resultSet);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
         return list;
     }
@@ -45,10 +49,10 @@ public class UserJDBCDAO implements CommonDAO<User> {
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 id = resultSet.next() ? resultSet.getLong(1) : null;
             } catch (SQLException e) {
-                System.out.println(e + "addObj exception ....");
+                LOGGER.error(e);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
         return id;
     }
@@ -56,14 +60,14 @@ public class UserJDBCDAO implements CommonDAO<User> {
     @Test
     @Override
     public User getById(Long id) {
-        User user;
+        User user = null;
         try (Connection connection = new JDBC().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
             preparedStatement.setLong(1, id);
             user = WorkShop.UserWS.createUserRS(preparedStatement.executeQuery());
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
         return user;
     }
@@ -78,7 +82,7 @@ public class UserJDBCDAO implements CommonDAO<User> {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
 
     }
@@ -90,7 +94,7 @@ public class UserJDBCDAO implements CommonDAO<User> {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
     }
 }

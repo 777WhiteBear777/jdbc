@@ -1,14 +1,19 @@
 package Sevice;
 
+import Connectivity.JDBC;
 import DAO.Impl.*;
 import Model.Order;
 import Model.Product;
 import Model.ShopCart;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService {
+    private final Logger LOGGER = LogManager.getLogger(JDBC.class.getName());
     public void createOrderJDBC(Long id) {
 
         Order order = new Order();
@@ -42,7 +47,7 @@ public class OrderService {
              orderJDBCDAO.addOrder(order);
             shopCartJDBCDAO.deleteAllProductByUser(id);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
     }
 
@@ -76,7 +81,7 @@ public class OrderService {
             order.setUserId(id);
             orderHibernateDAO.addOrder(order);
             shopCartHibernateDAO.deleteAllProductByUser(id);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

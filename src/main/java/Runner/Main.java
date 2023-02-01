@@ -3,6 +3,11 @@ package Runner;
 import DAO.Impl.OrderJDBCDAO;
 import DAO.Impl.ShopCartHibernateDAO;
 import DAO.Impl.UserJDBCDAO;
+import Sevice.OrderService;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 
 public class Main {
 
@@ -10,7 +15,7 @@ public class Main {
 //    private static PreparedStatement statement ;
 //    private static ResultSet resultSet;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 //        Order order = new Order();
 //        OrderJDBCDAO orderJDBCDAO = new OrderJDBCDAO();
 //        order.setTotalPrice(10);
@@ -45,16 +50,17 @@ public class Main {
 //        shopCartHibernateDAO.addShopCart(shopCart1);
 //        shopCartHibernateDAO.addShopCart(shopCart2);
 
-//        OrderService orderService = new OrderService();
-//        orderService.createOrderHibernate(1L);
+        OrderService orderService = new OrderService();
+        orderService.createOrderHibernate(1L);
 //        orderService.createOrderJDBC(1);
 //        ProductJDBCDAO productJDBCDAO = new ProductJDBCDAO();
 //        System.out.println(productJDBCDAO.getAll());
-        OrderJDBCDAO orderJDBCDAO = new OrderJDBCDAO();
-        System.out.println(orderJDBCDAO.getAllOrder());
-        System.out.println(orderJDBCDAO.getAllOrderByUser(1L));
+//        OrderJDBCDAO orderJDBCDAO = new OrderJDBCDAO();
+//        System.out.println(orderJDBCDAO.getAllOrder());
+//        System.out.println(orderJDBCDAO.getAllOrderByUser(1L));
+//
+//        UserJDBCDAO userJDBCDAO = new UserJDBCDAO();
+//        System.out.println(userJDBCDAO.getAll());
 
-        UserJDBCDAO userJDBCDAO = new UserJDBCDAO();
-        System.out.println(userJDBCDAO.getAll());
     }
 }

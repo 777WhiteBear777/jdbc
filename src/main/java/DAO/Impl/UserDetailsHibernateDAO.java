@@ -5,11 +5,13 @@ import DAO.CommonDAO;
 import Model.UserDetails;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 public class UserDetailsHibernateDAO implements CommonDAO<UserDetails> {
 
+    @Test
     @Override
     public List<UserDetails> getAll() {
         try (Session session = HibernateSession.getSessionFactory().openSession()) {
@@ -18,6 +20,7 @@ public class UserDetailsHibernateDAO implements CommonDAO<UserDetails> {
         }
     }
 
+    @Test
     @Override
     public Long addObj(UserDetails obj) {
         Long id;
@@ -30,6 +33,7 @@ public class UserDetailsHibernateDAO implements CommonDAO<UserDetails> {
         return id;
     }
 
+    @Test
     @Override
     public UserDetails getById(Long id) {
         UserDetails userDetails;

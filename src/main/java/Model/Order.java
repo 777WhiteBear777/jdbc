@@ -10,7 +10,7 @@ public class Order extends AbstractId {
     private String product;
     @Column(name = "total_price")
     private Float totalPrice;
-    @Column(name = "user_id")
+    @Column(name = "user_id" , nullable = false)
     private Long userId;
 
     public Order() {

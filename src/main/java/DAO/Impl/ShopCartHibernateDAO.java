@@ -5,10 +5,13 @@ import DAO.ShopCartDAO;
 import Model.ShopCart;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 public class ShopCartHibernateDAO implements ShopCartDAO {
+
+    @Test
     @Override
     public List<ShopCart> getAllProductByUser(Long userId) {
         try (Session session = HibernateSession.getSessionFactory().openSession()){
@@ -28,6 +31,7 @@ public class ShopCartHibernateDAO implements ShopCartDAO {
 
 
     }
+
 
     @Override
     public void deleteShopCart(Long userId, Long productId) {
