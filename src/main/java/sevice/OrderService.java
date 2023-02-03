@@ -36,7 +36,7 @@ public class OrderService {
                 if (i != 0 && i != productList.size() - 1) {
                     order.setProduct(", " + productList.get(i).getName());
                     order.setTotalPrice(productList.get(i).getPrice());
-                }if (i == 0) {
+                }else if (i == 0) {
                     order.setProduct(productList.get(i).getName());
                     order.setTotalPrice(productList.get(i).getPrice());
                 } else {

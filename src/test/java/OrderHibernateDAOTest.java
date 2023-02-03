@@ -23,7 +23,7 @@ public class OrderHibernateDAOTest {
     public void addOrder() throws SQLException {
         Order order = new Order();
         order.setProduct("TEST, TEST, TEST");
-        order.setUserId(20L);
+        order.setUserId(5L);
         order.setTotalPrice(9999F);
         Assertions.assertNotNull(orderHibernateDAO.addOrder(order));
     }

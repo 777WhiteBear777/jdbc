@@ -48,7 +48,7 @@ public class ProductHibernateDAOTest {
     }
 
     @Test
-    public void delete() throws InterruptedException {
+    public void delete(){
         productHibernateDAO.delete(product.getId() - 1);
         Assertions.assertNull(session.find(Product.class, product.getId() - 1));
     }

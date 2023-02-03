@@ -26,7 +26,7 @@ class UserJDBCDAOTest {
     private final String SELECT = "SELECT * FROM users ORDER BY id DESC LIMIT 1";
 
     @BeforeEach
-    public void getConnection() throws SQLException {
+    public void getConnection(){
         try {
             connection = new JDBC().getConnection();
             preparedStatement = connection.prepareStatement(SELECT);
@@ -77,7 +77,7 @@ class UserJDBCDAOTest {
     }
 
     @Test
-    public void delete() throws InterruptedException {
+    public void delete(){
         try {
             userJDBCDAO.delete(user.getId() - 1);
 

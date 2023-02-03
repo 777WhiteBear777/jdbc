@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class JDBC {
     private final String URL = "jdbc:mysql://localhost:3306/shop";
     private final String USER = "root";
-    private final String PASSWORD = "password";
+    private final String PASSWORD = "3248";
     private Connection connection;
     private final Logger LOGGER = LogManager.getLogger(JDBC.class.getName());
 

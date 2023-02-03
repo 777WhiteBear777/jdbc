@@ -27,7 +27,7 @@ public class UserDetailsJDBCDAOTest {
     private final String SELECT = "SELECT * FROM user_details ORDER BY id DESC LIMIT 1";
 
     @BeforeEach
-    public void getConnection() throws SQLException {
+    public void getConnection(){
         try {
             connection = new JDBC().getConnection();
             preparedStatement = connection.prepareStatement(SELECT);
@@ -49,7 +49,7 @@ public class UserDetailsJDBCDAOTest {
         UserDetails user = new UserDetails();
         user.setAge((byte) 5);
         user.setGender("Test");
-        user.setUserId(20L);
+        user.setUserId(5L);
         Assertions.assertNotNull(userDetailsJDBCDAO.addObj(user));
     }
 
@@ -79,7 +79,7 @@ public class UserDetailsJDBCDAOTest {
     }
 
     @Test
-    public void delete() throws InterruptedException {
+    public void delete(){
         try {
             userDetailsJDBCDAO.delete(userDetails.getId() - 1);
 

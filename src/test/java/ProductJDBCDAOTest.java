@@ -26,7 +26,7 @@ public class ProductJDBCDAOTest {
     private final String SELECT = "SELECT * FROM products ORDER BY id DESC LIMIT 1";
 
     @BeforeEach
-    public void getConnection() throws SQLException {
+    public void getConnection(){
         try {
             connection = new JDBC().getConnection();
             preparedStatement = connection.prepareStatement(SELECT);
@@ -78,7 +78,7 @@ public class ProductJDBCDAOTest {
     }
 
     @Test
-    public void delete() throws InterruptedException {
+    public void delete(){
         try {
             productJDBCDAO.delete(product.getId() - 1);
 

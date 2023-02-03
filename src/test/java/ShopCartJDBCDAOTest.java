@@ -40,7 +40,7 @@ public class ShopCartJDBCDAOTest {
 
     @Test
     public void getAllProductByUser() {
-        Assertions.assertNotNull(shoppingCartJDBCDAO.getAllProductByUser(1L));
+        Assertions.assertNotNull(shoppingCartJDBCDAO.getAllProductByUser(2L));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class ShopCartJDBCDAOTest {
     public void addShopCart() {
 
         try {
-            shoppingCart.setUserId(14L);
+            shoppingCart.setUserId(5L);
             shoppingCart.setProductId(8L);
             shoppingCartJDBCDAO.addShopCart(shoppingCart);
 

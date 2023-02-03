@@ -29,7 +29,7 @@ public class UserDetailsHibernateDAOTest {
         UserDetails user = new UserDetails();
         user.setAge((byte) 5);
         user.setGender("Test");
-        user.setUserId(20L);
+        user.setUserId(3L);
         Assertions.assertNotNull(userDetailsHibernateDAO.addObj(user));
     }
 
@@ -47,7 +47,7 @@ public class UserDetailsHibernateDAOTest {
     }
 
     @Test
-    public void delete() throws InterruptedException {
+    public void delete(){
         userDetailsHibernateDAO.delete(userDetails.getId() - 1);
         Assertions.assertNull(session.find(UserDetails.class, userDetails.getId() - 1));
     }

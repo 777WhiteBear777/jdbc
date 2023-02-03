@@ -45,8 +45,8 @@ public class ShopCartHibernateDAOTest {
 
     @Test
     public void addShopCart() {
-        shoppingCart.setUserId(18L);
-        shoppingCart.setProductId(8L);
+        shoppingCart.setUserId(5L);
+        shoppingCart.setProductId(5L);
         shoppingCartHibernateDAO.addShopCart(shoppingCart);
         Assertions.assertNotNull(session.find(ShoppingCart.class, shoppingCart));
     }

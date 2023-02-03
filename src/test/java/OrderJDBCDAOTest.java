@@ -21,7 +21,7 @@ public class OrderJDBCDAOTest {
     public void addOrderTest() {
         Order order = new Order();
         order.setProduct("TEST, TEST, TEST");
-        order.setUserId(20L);
+        order.setUserId(4L);
         order.setTotalPrice(999F);
         Assertions.assertNotNull(orderJDBCDAO.addOrder(order));
     }
