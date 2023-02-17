@@ -21,25 +21,11 @@ public class ShoppingCartHibernateDAO implements ShopCartDAO {
 
     @Override
     public void deleteAllProductByUser(Long userId) {
-        String hql = "DELETE FROM ShoppingCart where userId = :user_Id";
-        String hql1 = "delete from ShoppingCart where userId = :userId";
+        String hql = "DELETE FROM ShoppingCart where userId = :user_id";
         try (Session session = HibernateSession.getSessionFactory().openSession()) {
-            // не работает
-//            session.createQuery(hql1, ShoppingCart.class).setParameter("userId", userId).executeUpdate();
-            //работает
             session.getTransaction().begin();
-            List<ShoppingCart> list = session.createQuery("from ShoppingCart where userId = :id",ShoppingCart.class)
-                    .setParameter("id",userId)
-                    .list();
-            for (ShoppingCart shoppingCart : list) {
-                session.remove(shoppingCart);
-            }
+            session.createQuery(hql).setParameter("user_id", userId);
             session.getTransaction().commit();
-            // не работает
-//            Query<ShoppingCart> query = session.createQuery("DELETE FROM ShoppingCart WHERE userId = :id", ShoppingCart.class)
-//                    .setParameter("id", userId);
-//            int delete = query.executeUpdate();Ы
-//            System.out.println(delete);
         }
 
 
